@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Repository
 @JdbcRepository(dialect = Dialect.POSTGRES)
-public abstract class MerchantRepositoryImpl implements MerchantRepository {
+public abstract class MerchantRepositoryImpl {
     private final JdbcOperations jdbcOperations;
 
     public MerchantRepositoryImpl(JdbcOperations jdbcOperations) {
@@ -107,7 +107,7 @@ public abstract class MerchantRepositoryImpl implements MerchantRepository {
     }
 
     private String prepareConcatanatedFieldForSearch() {
-        return "lower(concat(id,name,email,phone,status))";
+        return "lower(concat(id,name,email,phone,status,address,business_name))";
     }
 
 }

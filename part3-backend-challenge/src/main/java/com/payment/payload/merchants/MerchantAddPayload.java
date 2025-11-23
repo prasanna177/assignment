@@ -1,41 +1,19 @@
-package com.payment.entity;
+package com.payment.payload.merchants;
 
 import io.micronaut.core.annotation.Introspected;
-import io.micronaut.data.annotation.Id;
-import io.micronaut.data.annotation.MappedEntity;
-import io.micronaut.data.annotation.MappedProperty;
-import io.micronaut.data.model.DataType;
 import io.micronaut.serde.annotation.Serdeable;
 
-import javax.persistence.Table;
-
-@Serdeable
 @Introspected
-@Table(schema = "operators")
-@MappedEntity("merchant")
-public class Merchant {
-
-    @Id
-    @MappedProperty(value = "id", type = DataType.STRING)
+@Serdeable
+public class MerchantAddPayload {
     String id;
-
-    @MappedProperty(value = "name", type = DataType.STRING)
     String name;
-
-    @MappedProperty(value = "email", type = DataType.STRING)
     String email;
-
-    @MappedProperty(value = "phone", type = DataType.STRING)
     String phone;
-
-    @MappedProperty(value = "status", type = DataType.STRING)
     String status;
-
-    @MappedProperty(value = "address", type = DataType.STRING)
     String address;
-
-    @MappedProperty(value = "business_name", type = DataType.STRING)
     String businessName;
+
 
     public String getId() {
         return id;
