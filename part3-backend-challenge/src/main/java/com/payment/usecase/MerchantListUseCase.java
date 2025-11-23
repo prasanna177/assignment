@@ -10,12 +10,11 @@ import com.payment.payload.SearchResponseBuilder;
 import com.payment.repository.MerchantRepositoryImpl;
 import jakarta.inject.Inject;
 
-public class MerchantUseCase {
+public class MerchantListUseCase implements UseCase<SearchRequestPayload, SearchResponse> {
     private final MerchantRepositoryImpl merchantRepository;
 
-
     @Inject
-    public MerchantUseCase(MerchantRepositoryImpl merchantRepository) {
+    public MerchantListUseCase(MerchantRepositoryImpl merchantRepository) {
         this.merchantRepository = merchantRepository;
     }
 
