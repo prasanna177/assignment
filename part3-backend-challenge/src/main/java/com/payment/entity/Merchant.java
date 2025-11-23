@@ -31,6 +31,12 @@ public class Merchant {
     @MappedProperty(value = "status", type = DataType.STRING)
     String status;
 
+    @MappedProperty(value = "address", type = DataType.STRING)
+    String address;
+
+    @MappedProperty(value = "business_name", type = DataType.STRING)
+    String businessName;
+
     public String getId() {
         return id;
     }
@@ -69,5 +75,21 @@ public class Merchant {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
     }
 }
