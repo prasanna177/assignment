@@ -30,13 +30,20 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
+  openapi:
+    enabled: true
+    views:
+      swagger:
+        enabled: true
+  swagger-ui:
+    enabled: true
 
 datasources:
   default:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5444}/${DB_NAME:payment_platform}
+    url: jdbc:postgresql://localhost:5432/payment_platform
     driverClassName: org.postgresql.Driver
-    username: ${DB_USER:admin}
-    password: ${DB_PASSWORD:admin}
+    username: postgres
+    password: test123
     dialect: POSTGRES
     schema-generate: NONE
     maximum-pool-size: 10
@@ -84,12 +91,12 @@ logger:
     io.micronaut: INFO
     io.micronaut.data: DEBUG
 
-# OpenAPI Configuration
-micronaut:
-  openapi:
-    enabled: true
-  views:
-    swagger:
-      enabled: true
-swagger-ui:
-  enabled: true
+## OpenAPI Configuration
+#micronaut:
+#  openapi:
+#    enabled: true
+#  views:
+#    swagger:
+#      enabled: true
+#swagger-ui:
+#  enabled: true

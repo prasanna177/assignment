@@ -29,7 +29,7 @@ import java.util.Optional;
  * 6. Return proper TransactionResponse DTOs
  * 7. Add error handling
  */
-@Controller("/api/v1/merchants")
+@Controller("/api/v1/transactions")
 @Tag(name = "Transactions")
 public class TransactionController {
 
