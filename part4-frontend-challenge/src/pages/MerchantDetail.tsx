@@ -91,6 +91,57 @@ export const MerchantDetail = () => {
     type: txn.status
   })) || [];
 
+  // Export transactions to CSV
+  const handleExportCSV = () => {
+    if (!transactions || transactions.transactions.length === 0) {
+      setToast({
+        message: 'No transactions to export',
+        type: 'info'
+      });
+      return;
+    }
+
+    // CSV headers
+    const headers = ['Transaction ID', 'Date', 'Amount', 'Currency', 'Status', 'Card Type', 'Card Last 4', 'Acquirer', 'Issuer'];
+    
+    // CSV rows
+    const rows = transactions.transactions.map(txn => [
+      txn.txnId,
+      new Date(txn.timestamp).toLocaleString('en-US'),
+      txn.amount.toFixed(2),
+      txn.currency,
+      txn.status,
+      txn.cardType,
+      txn.cardLast4,
+      txn.acquirer,
+      txn.issuer
+    ]);
+
+    // Combine headers and rows
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+    ].join('\n');
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `merchant_${id}_transactions_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    setToast({
+      message: 'Transaction history exported successfully!',
+      type: 'success'
+    });
+  };
+
   return (
     <main className="container">
       {toast && (
@@ -156,7 +207,16 @@ export const MerchantDetail = () => {
 
         {/* Transaction Statistics */}
         <div className="statistics-section">
-          <h2>Transaction Statistics</h2>
+          <div className="statistics-header">
+            <h2>Transaction Statistics</h2>
+            <button 
+              className="btn-export" 
+              onClick={handleExportCSV}
+              disabled={!transactions || transactions.transactions.length === 0}
+            >
+              📥 Export CSV
+            </button>
+          </div>
           <div className="stats-grid">
             <div className="stat-card">
               <div className="stat-icon">📊</div>
