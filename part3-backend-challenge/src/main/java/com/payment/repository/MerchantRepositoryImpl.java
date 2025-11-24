@@ -107,7 +107,7 @@ public abstract class MerchantRepositoryImpl {
     }
 
     private String prepareConcatanatedFieldForSearch() {
-        return "lower(concat(id,name,email,phone,status,address,business_name))";
+        return "lower(concat(id,name))";
     }
 
 }

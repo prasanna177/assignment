@@ -45,17 +45,6 @@ public class MerchantEditUseCase implements UseCase<MerchantEditPayload, Merchan
 
 
     public void validateRequestPayload(MerchantEditPayload payload) {
-        SearchRequestPayload searchRequestPayload = SearchRequestPayloadBuilder.builder()
-                .pageNumber(0)
-                .pageSize(0)
-                .sortField(null)
-                .sortOrder(null)
-                .searchParameter(null)
-                .build();
-        List<Merchant> merchantList = this.merchantRepositoryImpl.dynamicSearch(searchRequestPayload);
-        if (merchantList.stream().anyMatch(merchant -> merchant.getEmail().equalsIgnoreCase(payload.getEmail()))) {
-            throw new IllegalArgumentException("Merchant email already exists");
-        }
         if(HelperUtils.isBlankOrNull(payload.getName())) {
             throw new IllegalArgumentException("Name is required");
         }

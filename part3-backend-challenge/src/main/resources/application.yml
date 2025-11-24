@@ -37,6 +37,9 @@ micronaut:
         enabled: true
   swagger-ui:
     enabled: true
+  serde:
+    serialization:
+      inclusion: ALWAYS
 
 datasources:
   default:

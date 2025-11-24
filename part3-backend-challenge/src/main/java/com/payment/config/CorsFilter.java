@@ -15,7 +15,7 @@ public class CorsFilter implements HttpServerFilter {
     public Publisher<MutableHttpResponse<?>> doFilter(HttpRequest<?> request, ServerFilterChain chain) {
         return Flux.from(chain.proceed(request))
             .doOnNext(response -> {
-                response.header("Access-Control-Allow-Origin", "http://localhost:3000");
+                response.header("Access-Control-Allow-Origin", "*");
                 response.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
                 response.header("Access-Control-Allow-Headers", "*");
                 response.header("Access-Control-Expose-Headers", "*");

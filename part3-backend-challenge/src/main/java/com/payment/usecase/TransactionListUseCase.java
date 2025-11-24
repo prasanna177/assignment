@@ -50,9 +50,10 @@ public class TransactionListUseCase implements UseCase<TransactionListRequest, T
                 request.status(),
                 pageable
         );
-        
+        System.out.println(transactionPage + " TP!!!!!!");
         // If no transactions found, return empty response with zero summary
         if (transactionPage.isEmpty()) {
+            System.out.println("yep its empty");
             return Optional.of(createEmptyResponse(request));
         }
         
@@ -88,7 +89,7 @@ public class TransactionListUseCase implements UseCase<TransactionListRequest, T
         List<TransactionDTO> transactionDTOs = transactionPage.getContent().stream()
                 .map(txn -> mapToDTO(txn, detailsByTxnId.getOrDefault(txn.getTxnId(), List.of()), membersById))
                 .toList();
-
+        System.out.println(transactionDTOs + " transactionDTOs");
         // Create pagination DTO
         PaginationDTO pagination = new PaginationDTO(
                 request.page(),
@@ -136,7 +137,7 @@ public class TransactionListUseCase implements UseCase<TransactionListRequest, T
                 request.merchantId(),
                 dateRange,
                 emptySummary,
-                List.of(),
+                Collections.emptyList(),
                 emptyPagination
         );
     }

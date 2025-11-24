@@ -57,7 +57,6 @@ public class TransactionController {
 
         // Execute use case
         Optional<TransactionListResponse> response = transactionListUseCase.execute(request);
-
         return response
                 .map(HttpResponse::ok)
                 .orElseGet(() -> HttpResponse.notFound());
