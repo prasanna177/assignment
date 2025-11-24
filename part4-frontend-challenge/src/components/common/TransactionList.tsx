@@ -2,15 +2,13 @@ import './TransactionList.css';
 
 interface Transaction {
   txnId: number;
-  merchantId: string;
+  merchantId?: string;
   amount: number;
   currency: string;
   status: string;
   cardType: string;
   cardLast4: string;
-  authCode: string;
-  txnDate: string;
-  createdAt: string;
+  timestamp: string; // Changed from txnDate
 }
 
 interface TransactionListProps {
@@ -44,6 +42,7 @@ export const TransactionList = ({ transactions, loading }: TransactionListProps)
   };
 
   const formatDate = (dateString: string) => {
+    if (!dateString) return '-';
     return new Date(dateString).toLocaleString('en-US', {
       month: 'short',
       day: 'numeric',
@@ -63,14 +62,13 @@ export const TransactionList = ({ transactions, loading }: TransactionListProps)
             <th>Amount</th>
             <th>Card</th>
             <th>Status</th>
-            <th>Auth Code</th>
           </tr>
         </thead>
         <tbody>
           {transactions.map((txn) => (
             <tr key={txn.txnId}>
               <td className="txn-id">#{txn.txnId}</td>
-              <td>{formatDate(txn.txnDate)}</td>
+              <td>{formatDate(txn.timestamp)}</td>
               <td className="amount">{formatAmount(txn.amount, txn.currency)}</td>
               <td>
                 <span className="card-info">
@@ -82,7 +80,6 @@ export const TransactionList = ({ transactions, loading }: TransactionListProps)
                   {txn.status}
                 </span>
               </td>
-              <td className="auth-code">{txn.authCode}</td>
             </tr>
           ))}
         </tbody>

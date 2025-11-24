@@ -4,8 +4,8 @@ export interface Transaction {
   txnId: number;
   amount: number;
   currency: string;
-  status: 'completed' | 'pending' | 'failed' | 'reversed';
-  timestamp: string;
+  status: string;
+  timestamp: string; // Changed from txnDate
   cardType: string;
   cardLast4: string;
   acquirer: string;
@@ -24,18 +24,14 @@ export interface TransactionSummary {
   totalTransactions: number;
   totalAmount: number;
   currency: string;
-  byStatus: {
-    completed: number;
-    pending: number;
-    failed: number;
-  };
+  byStatus: Record<string, number>;
 }
 
 export interface TransactionResponse {
   merchantId: string;
   dateRange: {
-    start: string;
-    end: string;
+    startDate: string;
+    endDate: string;
   };
   summary: TransactionSummary;
   transactions: Transaction[];

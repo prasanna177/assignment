@@ -1,27 +1,9 @@
 import { useState, useEffect } from 'react';
 import { getTransactions } from '../services/transactionService';
-import { FilterState } from '../types/transaction';
-
-interface Transaction {
-  txnId: number;
-  merchantId: string;
-  amount: number;
-  currency: string;
-  status: string;
-  cardType: string;
-  cardLast4: string;
-  authCode: string;
-  txnDate: string;
-  createdAt: string;
-}
+import { FilterState, TransactionResponse } from '../types/transaction';
 
 interface UseTransactionsResult {
-  data: {
-    transactions: Transaction[];
-    totalTransactions: number;
-    page: number;
-    size: number;
-  } | null;
+  data: TransactionResponse | null;
   loading: boolean;
   error: Error | null;
   refetch: () => void;
@@ -31,7 +13,7 @@ export const useTransactions = (
   merchantId: string,
   filters: FilterState
 ): UseTransactionsResult => {
-  const [data, setData] = useState<UseTransactionsResult['data']>(null);
+  const [data, setData] = useState<TransactionResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -40,7 +22,7 @@ export const useTransactions = (
       setLoading(true);
       setError(null);
       const response = await getTransactions(merchantId, filters);
-      setData(response as any);
+      setData(response);
     } catch (err) {
       setError(err as Error);
       console.error('Error fetching transactions:', err);
